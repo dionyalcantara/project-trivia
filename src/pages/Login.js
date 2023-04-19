@@ -1,6 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-export class Login extends React.Component {
+class Login extends React.Component {
   state = {
     name: '',
     email: '',
@@ -51,3 +52,5 @@ export class Login extends React.Component {
     );
   }
 }
+
+export default connect()(Login);
