@@ -5,7 +5,7 @@ import { Login } from './pages/login';
 export default function App() {
   return (
     <Switch>
-      <Route exact path="/" component={Login} />
+      <Route exact path="/" component={ Login } />
       {/* <Route /> */}
     </Switch>
   );
