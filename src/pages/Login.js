@@ -17,7 +17,7 @@ class Login extends React.Component {
 
   render() {
     const { email, name } = this.state;
-    const { dispatch, fetchingComplete } = this.props;
+    const { dispatch, fetchingComplete, history } = this.props;
 
     const isValid = name.length > 0 && email.length > 0;
 
@@ -57,6 +57,14 @@ class Login extends React.Component {
           >
             Play
           </button>
+          <button
+            data-testid="btn-settings"
+            onClick={ () => {
+              history.push('/config');
+            } }
+          >
+            Configurações
+          </button>
         </form>
       </main>
     );
@@ -70,6 +78,9 @@ const mapStateToProps = (state) => ({
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
   fetchingComplete: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(Login);
