@@ -1,0 +1,33 @@
+header {
+  background-color: #fdfdfd;
+  box-shadow: rgba(33, 35, 38, 0.1) 1px 10px 10px -10px;
+  box-sizing: border-box;
+  display: flex;
+  height: 3.5rem;
+  justify-content: flex-end;
+  width: 100vw;
+}
+
+.user-info, .scoring {
+  align-items: center;
+  display: flex;
+  font-family: Lucida Sans , Lucida Sans Regular , Geneva , Verdana , sans-serif;
+  font-size: 14px;
+  justify-content: center;
+  margin: 0.5rem 1rem;
+  width: 18vmin;
+}
+
+.user-info img {
+  height: 30px;
+  margin-right: 0.5rem;
+  width: 30px;
+}
+
+.star-icon, .user-pic {
+  margin-right: 0.5rem;
+}
+
+.star-icon path {
+  color: gold;
+}

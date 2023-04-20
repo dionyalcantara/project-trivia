@@ -1,7 +1,12 @@
+// importações
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import '../styles/header.css';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 
 class Header extends Component {
   render() {
@@ -10,16 +15,18 @@ class Header extends Component {
     return (
       <header>
         <div className="user-info">
-          <img
+          { profileImage ? <img
             src={ profileImage }
             alt="profile"
             data-testid="header-profile-picture"
-          />
-          <h4 data-testid="header-player-name">{name}</h4>
+          /> : (
+            <FontAwesomeIcon icon={ faUser } className="user-pic" />
+          )}
+          <h4 data-testid="header-player-name">{`Nome ${name}`}</h4>
         </div>
         <div className="scoring">
-          <FontAwesomeIcon icon="fa-solid fa-star" />
-          <h4 data-testid="header-score">{currentScore}</h4>
+          <FontAwesomeIcon icon={ faStar } className="star-icon" />
+          <h4 data-testid="header-score">{`Score: ${currentScore}`}</h4>
         </div>
       </header>
     );
