@@ -9,7 +9,7 @@ import {
 const INITIAL_STATE = {
   player: {
     name: '',
-    assertions: '',
+    assertions: 0,
     score: 0,
     gravatarEmail: '',
     isFetching: false,
