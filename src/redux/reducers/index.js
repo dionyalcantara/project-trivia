@@ -3,6 +3,7 @@ import {
   REQUEST_SUCCESSFUL,
   REQUEST_FAILED,
   GRAVATAR_EMAIL,
+  SAVE_USERNAME,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -52,6 +53,14 @@ export const reducer = (state = INITIAL_STATE, action) => {
       player: {
         ...state.player,
         gravatarEmail: action.url,
+      },
+    };
+
+  case SAVE_USERNAME:
+    return {
+      player: {
+        ...state.player,
+        name: action.payload,
       },
     };
 

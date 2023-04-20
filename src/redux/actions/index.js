@@ -1,10 +1,10 @@
 import * as type from './actionTypes';
 
-export function requestStarted() {
+function requestStarted() {
   return { type: type.REQUEST_STARTED };
 }
 
-export function requestSuccessful(data) {
+function requestSuccessful(data) {
   return {
     type: type.REQUEST_SUCCESSFUL,
     payload: data,
@@ -36,6 +36,10 @@ export function fetchTrivia() {
 export const generateGravatar = (hash) => async (dispatch) => {
   dispatch(requestStarted());
   const response = await fetch(`https://www.gravatar.com/avatar/${hash}`);
-  console.log(response);
   return dispatch(requestGravatar(response.url));
 };
+
+export const saveName = (userName) => ({
+  type: type.SAVE_USERNAME,
+  payload: userName,
+});

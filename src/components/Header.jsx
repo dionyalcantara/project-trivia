@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import '../styles/header.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleUser, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 class Header extends Component {
   render() {
@@ -15,14 +15,12 @@ class Header extends Component {
     return (
       <header>
         <div className="user-info">
-          { profileImage ? <img
+          <img
             src={ profileImage }
             alt="profile"
             data-testid="header-profile-picture"
-          /> : (
-            <FontAwesomeIcon icon={ faCircleUser } className="user-pic" />
-          )}
-          <h5 data-testid="header-player-name">{`Nome ${name}`}</h5>
+          />
+          <h5 data-testid="header-player-name">{name}</h5>
         </div>
         <div className="scoring">
           <FontAwesomeIcon icon={ faStar } className="star-icon" />

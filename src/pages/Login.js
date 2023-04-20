@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MD5 } from 'crypto-js';
-import { fetchTrivia, generateGravatar } from '../redux/actions';
+import { fetchTrivia, generateGravatar, saveName } from '../redux/actions';
 
 class Login extends React.Component {
   state = {
@@ -18,13 +18,14 @@ class Login extends React.Component {
 
   handleClick = (event) => {
     const { dispatch } = this.props;
-    const { email } = this.state;
+    const { email, name } = this.state;
 
     event.preventDefault();
 
     const convertedEmail = MD5(email).toString();
 
     dispatch(generateGravatar(convertedEmail));
+    dispatch(saveName(name));
     dispatch(fetchTrivia());
   };
 
