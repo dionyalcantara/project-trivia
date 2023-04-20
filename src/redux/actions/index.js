@@ -1,10 +1,10 @@
 import * as type from './actionTypes';
 
-export function requestStarted() {
+function requestStarted() {
   return { type: type.REQUEST_STARTED };
 }
 
-export function requestSuccessful(data) {
+function requestSuccessful(data) {
   return {
     type: type.REQUEST_SUCCESSFUL,
     payload: data,
@@ -18,19 +18,22 @@ export function requestFailed(error) {
   };
 }
 
+export const generateGravatar = (hash) => ({
+  type: type.GRAVATAR_EMAIL,
+  payload: `https://www.gravatar.com/avatar/${hash}`,
+});
+
 export function fetchTrivia() {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(requestStarted());
-    fetch('https://opentdb.com/api_token.php?command=request')
-      .then((response) => response.json())
-      .then((data) => {
-        localStorage.setItem('token', data.token);
-        fetch(`https://opentdb.com/api.php?amount=5&token=${localStorage.getItem('token')}`)
-          .then((responseTwo) => responseTwo.json())
-          .then((dataTwo) => {
-            dispatch(requestSuccessful());
-            console.log(dataTwo);
-          });
-      });
+    const response = await fetch('https://opentdb.com/api_token.php?command=request');
+    const data = await response.json();
+    dispatch(requestSuccessful());
+    localStorage.setItem('token', data.token);
   };
 }
+
+export const saveName = (userName) => ({
+  type: type.SAVE_USERNAME,
+  payload: userName,
+});

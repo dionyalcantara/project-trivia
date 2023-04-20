@@ -2,6 +2,8 @@ import {
   REQUEST_STARTED,
   REQUEST_SUCCESSFUL,
   REQUEST_FAILED,
+  GRAVATAR_EMAIL,
+  SAVE_USERNAME,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -23,16 +25,20 @@ export const reducer = (state = INITIAL_STATE, action) => {
   case REQUEST_STARTED:
     return {
       ...state,
-      isFetching: true,
-      errorMessage: '',
+      player: {
+        ...state.player,
+        isFetching: true,
+      },
     };
 
   case REQUEST_SUCCESSFUL:
     return {
       ...state,
-      isFetching: false,
-      fetchingComplete: true,
-      errorMessage: '',
+      player: {
+        ...state.player,
+        isFetching: false,
+        fetchingComplete: true,
+      },
     };
 
   case REQUEST_FAILED:
@@ -41,6 +47,23 @@ export const reducer = (state = INITIAL_STATE, action) => {
       isFetching: false,
       errorMessage: action.payload,
     };
+
+  case GRAVATAR_EMAIL:
+    return {
+      player: {
+        ...state.player,
+        gravatarEmail: action.payload,
+      },
+    };
+
+  case SAVE_USERNAME:
+    return {
+      player: {
+        ...state.player,
+        name: action.payload,
+      },
+    };
+
   default:
     return state;
   }
