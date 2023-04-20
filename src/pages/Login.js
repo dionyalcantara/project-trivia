@@ -1,5 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { fetchTrivia } from '../redux/actions';
 
 class Login extends React.Component {
   state = {
@@ -14,8 +17,11 @@ class Login extends React.Component {
 
   render() {
     const { email, name } = this.state;
+    const { dispatch, fetchingComplete } = this.props;
 
     const isValid = name.length > 0 && email.length > 0;
+
+    if (fetchingComplete) return <Redirect to="/game" />;
 
     return (
       <main>
@@ -44,6 +50,10 @@ class Login extends React.Component {
             type="submit"
             disabled={ !isValid }
             data-testid="btn-play"
+            onClick={ (e) => {
+              e.preventDefault();
+              dispatch(fetchTrivia());
+            } }
           >
             Play
           </button>
@@ -53,4 +63,13 @@ class Login extends React.Component {
   }
 }
 
-export default connect()(Login);
+const mapStateToProps = (state) => ({
+  fetchingComplete: state.fetchingComplete,
+});
+
+Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  fetchingComplete: PropTypes.string.isRequired,
+};
+
+export default connect(mapStateToProps)(Login);
