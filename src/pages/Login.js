@@ -64,12 +64,12 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  fetchingComplete: state.fetchingComplete,
+  fetchingComplete: state.player.fetchingComplete,
 });
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  fetchingComplete: PropTypes.string.isRequired,
+  fetchingComplete: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps)(Login);
