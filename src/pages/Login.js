@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MD5 } from 'crypto-js';
-import { fetchTrivia, generateGravatar, saveName } from '../redux/actions';
+import { fetchTrivia, saveName, generateGravatar } from '../redux/actions';
 
 class Login extends React.Component {
   state = {
@@ -88,7 +88,7 @@ const mapStateToProps = (state) => ({
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  fetchingComplete: PropTypes.string.isRequired,
+  fetchingComplete: PropTypes.bool.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

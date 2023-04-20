@@ -52,7 +52,7 @@ export const reducer = (state = INITIAL_STATE, action) => {
     return {
       player: {
         ...state.player,
-        gravatarEmail: action.url,
+        gravatarEmail: action.payload,
       },
     };
 

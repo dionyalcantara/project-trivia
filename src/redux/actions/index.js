@@ -18,9 +18,9 @@ export function requestFailed(error) {
   };
 }
 
-const requestGravatar = (url) => ({
+export const generateGravatar = (hash) => ({
   type: type.GRAVATAR_EMAIL,
-  url,
+  payload: `https://www.gravatar.com/avatar/${hash}`,
 });
 
 export function fetchTrivia() {
@@ -32,12 +32,6 @@ export function fetchTrivia() {
     localStorage.setItem('token', data.token);
   };
 }
-
-export const generateGravatar = (hash) => async (dispatch) => {
-  dispatch(requestStarted());
-  const response = await fetch(`https://www.gravatar.com/avatar/${hash}`);
-  return dispatch(requestGravatar(response.url));
-};
 
 export const saveName = (userName) => ({
   type: type.SAVE_USERNAME,
