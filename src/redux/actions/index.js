@@ -18,26 +18,24 @@ export function requestFailed(error) {
   };
 }
 
+const requestGravatar = (url) => ({
+  type: type.GRAVATAR_EMAIL,
+  url,
+});
+
 export function fetchTrivia() {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(requestStarted());
-    fetch('https://opentdb.com/api_token.php?command=request')
-      .then((response) => response.json())
-      .then((data) => {
-        localStorage.setItem('token', data.token);
-        fetch(`https://opentdb.com/api.php?amount=5&token=${localStorage.getItem('token')}`)
-          .then((responseTwo) => responseTwo.json())
-          .then((dataTwo) => {
-            dispatch(requestSuccessful());
-            console.log(dataTwo);
-          });
-      });
+    const response = await fetch('https://opentdb.com/api_token.php?command=request');
+    const data = await response.json();
+    dispatch(requestSuccessful());
+    localStorage.setItem('token', data.token);
   };
 }
 
 export const generateGravatar = (hash) => async (dispatch) => {
   dispatch(requestStarted());
   const response = await fetch(`https://www.gravatar.com/avatar/${hash}`);
-  const data = await response.json();
-  return dispatch(requestSuccessful(data));
+  console.log(response);
+  return dispatch(requestGravatar(response.url));
 };
