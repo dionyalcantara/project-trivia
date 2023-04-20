@@ -22,11 +22,11 @@ class Header extends Component {
           /> : (
             <FontAwesomeIcon icon={ faCircleUser } className="user-pic" />
           )}
-          <h4 data-testid="header-player-name">{`Nome ${name}`}</h4>
+          <h5 data-testid="header-player-name">{`Nome ${name}`}</h5>
         </div>
         <div className="scoring">
           <FontAwesomeIcon icon={ faStar } className="star-icon" />
-          <h4 data-testid="header-score">{`Score: ${currentScore}`}</h4>
+          <h5 data-testid="header-score">{`Score: ${currentScore}`}</h5>
         </div>
       </header>
     );

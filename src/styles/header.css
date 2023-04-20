@@ -12,7 +12,7 @@ header {
   align-items: center;
   display: flex;
   font-family: Lucida Sans , Lucida Sans Regular , Geneva , Verdana , sans-serif;
-  font-size: 14px;
+  font-size: 18px;
   justify-content: center;
   width: 14vmin;
 }
@@ -24,7 +24,7 @@ header {
 }
 
 .scoring {
-  margin-right: 0.5rem;
+  margin-right: 1.5rem;
 }
 
 .star-icon, .user-pic {
