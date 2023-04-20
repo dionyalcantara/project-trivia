@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchTrivia } from '../redux/actions';
+import { MD5 } from 'crypto-js';
+import { fetchTrivia, generateGravatar } from '../redux/actions';
 
 class Login extends React.Component {
   state = {
@@ -15,9 +16,21 @@ class Login extends React.Component {
     this.setState({ [name]: value });
   };
 
+  handleClick = (event) => {
+    const { dispatch } = this.props;
+    const { email } = this.state;
+
+    event.preventDefault();
+
+    const convertedEmail = MD5(email).toString();
+
+    dispatch(generateGravatar(convertedEmail));
+    dispatch(fetchTrivia());
+  };
+
   render() {
     const { email, name } = this.state;
-    const { dispatch, fetchingComplete } = this.props;
+    const { fetchingComplete } = this.props;
 
     const isValid = name.length > 0 && email.length > 0;
 
@@ -50,10 +63,7 @@ class Login extends React.Component {
             type="submit"
             disabled={ !isValid }
             data-testid="btn-play"
-            onClick={ (e) => {
-              e.preventDefault();
-              dispatch(fetchTrivia());
-            } }
+            onClick={ this.handleClick }
           >
             Play
           </button>

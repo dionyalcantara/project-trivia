@@ -34,3 +34,10 @@ export function fetchTrivia() {
       });
   };
 }
+
+export const generateGravatar = (hash) => async (dispatch) => {
+  dispatch(requestStarted());
+  const response = await fetch(`https://www.gravatar.com/avatar/${hash}`);
+  const data = await response.json();
+  return dispatch(requestSuccessful(data));
+};
