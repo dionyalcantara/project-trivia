@@ -61,6 +61,7 @@ class Questions extends React.Component {
   nextQuestion = () => {
     this.setState((prevState) => ({
       indexQuestion: prevState.indexQuestion + 1,
+      answerTime: 30,
     }), this.organizeQuestion);
   };
 
@@ -110,6 +111,7 @@ class Questions extends React.Component {
                   onClick={ this.btnClick }
                   data-testid={ correctAnswer
                     ? 'correct-answer' : `wrong-answer-${wrongAnswerIndex}` }
+                  disabled={ answerTime === 0 }
                 >
                   { text }
                 </button>
