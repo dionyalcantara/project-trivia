@@ -21,7 +21,6 @@ class Game extends React.Component {
   };
 
   render() {
-    // esse history vai ser usado no req 10
     const { history } = this.props;
     return (
       <main>
@@ -33,7 +32,6 @@ class Game extends React.Component {
 }
 
 Game.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
