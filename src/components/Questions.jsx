@@ -9,6 +9,7 @@ class Questions extends React.Component {
     category: '',
     question: '',
     shuffledAnswers: [],
+    isAnswered: false,
   };
 
   componentDidMount() {
@@ -58,8 +59,14 @@ class Questions extends React.Component {
     }, this.organizeQuestion);
   };
 
+  btnClick = () => {
+    this.setState({
+      isAnswered: true,
+    });
+  };
+
   render() {
-    const { category, question, shuffledAnswers } = this.state;
+    const { category, question, shuffledAnswers, isAnswered } = this.state;
     let wrongAnswerIndex = 0;
     return (
       <section>
@@ -68,10 +75,18 @@ class Questions extends React.Component {
         <div data-testid="answer-options">
           {
             shuffledAnswers.map(({ text, correctAnswer }) => {
+              const btnStyle = {
+                border: '3px solid',
+              };
+              if (isAnswered) {
+                btnStyle.border += correctAnswer ? ' rgb(6, 240, 15)' : ' red';
+              }
               const btnAnswer = (
                 <button
                   key={ text }
+                  style={ btnStyle }
                   type="button"
+                  onClick={ this.btnClick }
                   data-testid={ correctAnswer
                     ? 'correct-answer' : `wrong-answer-${wrongAnswerIndex}` }
                 >
