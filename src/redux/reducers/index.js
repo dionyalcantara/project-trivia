@@ -19,7 +19,7 @@ const INITIAL_STATE = {
   },
 };
 
-export const reducer = (state = INITIAL_STATE, action) => {
+const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   // desenvolver cases para cada action
   case REQUEST_STARTED:
@@ -68,3 +68,5 @@ export const reducer = (state = INITIAL_STATE, action) => {
     return state;
   }
 };
+
+export default reducer;
