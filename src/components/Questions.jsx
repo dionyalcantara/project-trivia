@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const INTERVAL = 1000;
+const LAST_QUESTION = 4;
 
 class Questions extends React.Component {
   state = {
@@ -59,6 +60,11 @@ class Questions extends React.Component {
   };
 
   nextQuestion = () => {
+    const { indexQuestion } = this.state;
+    const { history } = this.props;
+
+    if (indexQuestion === LAST_QUESTION) history.push('/feedback');
+
     this.setState((prevState) => ({
       indexQuestion: prevState.indexQuestion + 1,
       answerTime: 30,
