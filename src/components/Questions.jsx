@@ -50,6 +50,12 @@ class Questions extends React.Component {
     });
   };
 
+  nextQuestion = () => {
+    this.setState((prevState) => ({
+      indexQuestion: prevState.indexQuestion + 1,
+    }), this.organizeQuestion);
+  };
+
   fetchApiQuestions = async () => {
     const token = localStorage.getItem('token');
     const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
@@ -99,6 +105,14 @@ class Questions extends React.Component {
               return btnAnswer;
             })
           }
+          { isAnswered && (
+            <button
+              data-testid="btn-next"
+              onClick={ this.nextQuestion }
+            >
+              Next
+            </button>
+          )}
         </div>
       </section>
     );
