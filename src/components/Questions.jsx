@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+const INTERVAL = 1000;
+
 class Questions extends React.Component {
   state = {
     indexQuestion: 0,
@@ -10,10 +12,16 @@ class Questions extends React.Component {
     question: '',
     shuffledAnswers: [],
     isAnswered: false,
+    answerTime: 30,
   };
 
   componentDidMount() {
     this.fetchApiQuestions();
+    this.timer = setInterval(() => this.timerRun(), INTERVAL);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   shuffleArray = (answers) => {
@@ -71,13 +79,20 @@ class Questions extends React.Component {
     });
   };
 
+  timerRun = () => {
+    this.setState((prevState) => ({
+      answerTime: prevState.answerTime > 1 ? prevState.answerTime - 1 : 0,
+    }));
+  };
+
   render() {
-    const { category, question, shuffledAnswers, isAnswered } = this.state;
+    const { category, question, shuffledAnswers, isAnswered, answerTime } = this.state;
     let wrongAnswerIndex = 0;
     return (
       <section>
         <h1 data-testid="question-category">{category}</h1>
         <h2 data-testid="question-text">{question}</h2>
+        <span>{`Tempo: ${answerTime}`}</span>
         <div data-testid="answer-options">
           {
             shuffledAnswers.map(({ text, correctAnswer }) => {
