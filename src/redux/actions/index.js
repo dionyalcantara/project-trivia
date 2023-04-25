@@ -37,3 +37,8 @@ export const saveName = (userName) => ({
   type: type.SAVE_USERNAME,
   payload: userName,
 });
+
+export const addScore = (points) => ({
+  type: type.ADD_SCORE,
+  payload: points,
+});

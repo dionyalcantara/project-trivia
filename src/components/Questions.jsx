@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { addScore } from '../redux/actions';
 
 const INTERVAL = 1000;
+let actualPoints = 0;
 
 class Questions extends React.Component {
   state = {
@@ -13,11 +15,13 @@ class Questions extends React.Component {
     shuffledAnswers: [],
     isAnswered: false,
     answerTime: 30,
+    points: 0,
   };
 
   componentDidMount() {
     this.fetchApiQuestions();
     this.timer = setInterval(() => this.timerRun(), INTERVAL);
+    // this.sumPoints();
   }
 
   componentWillUnmount() {
@@ -44,10 +48,12 @@ class Questions extends React.Component {
       {
         text: questions[indexQuestion].correct_answer,
         correctAnswer: true,
+        difficulty: questions[indexQuestion].difficulty,
       },
       ...questions[indexQuestion].incorrect_answers.map((text) => ({
         text,
         correctAnswer: false,
+        difficulty: questions[indexQuestion].difficulty,
       })),
     ];
     const shuffledAnswers = this.shuffleArray(answers);
@@ -59,6 +65,12 @@ class Questions extends React.Component {
   };
 
   nextQuestion = () => {
+    const { points } = this.state;
+
+    console.log(points);
+    this.setState({
+      isAnswered: false,
+    });
     this.setState((prevState) => ({
       indexQuestion: prevState.indexQuestion + 1,
       answerTime: 30,
@@ -86,8 +98,32 @@ class Questions extends React.Component {
     }));
   };
 
+  // sumPoints = (answer, difficulty) => {
+  //   let { points } = this.state;
+  //   const { answerTime } = this.state;
+  //   const { player } = this.props;
+  //   const truePoints = 10;
+  //   const hard = 3;
+  //   const actualPoints = player.score;
+  //   let diff;
+
+  //   if (difficulty === 'easy') diff = 1;
+  //   if (difficulty === 'medium') diff = 2;
+  //   if (difficulty === 'hard') diff = hard;
+
+  //   // if (answer === true) {
+  //   //   actualPoints += truePoints + (answerTime * diff);
+  //   // }
+  //   console.log(answer);
+  //   this.setState({
+  //     points: points += actualPoints,
+  //   });
+  // };
+
   render() {
     const { category, question, shuffledAnswers, isAnswered, answerTime } = this.state;
+    const { dispatch } = this.props;
+
     let wrongAnswerIndex = 0;
     return (
       <section>
@@ -96,7 +132,7 @@ class Questions extends React.Component {
         <span>{`Tempo: ${answerTime}`}</span>
         <div data-testid="answer-options">
           {
-            shuffledAnswers.map(({ text, correctAnswer }) => {
+            shuffledAnswers.map(({ text, correctAnswer, difficulty }) => {
               const btnStyle = {
                 border: '3px solid',
               };
@@ -108,12 +144,29 @@ class Questions extends React.Component {
                   key={ text }
                   style={ btnStyle }
                   type="button"
-                  onClick={ this.btnClick }
+                  onClick={ () => {
+                    this.btnClick();
+
+                    const truePoints = 10;
+                    const hard = 3;
+                    let diff;
+
+                    if (difficulty === 'easy') diff = 1;
+                    if (difficulty === 'medium') diff = 2;
+                    if (difficulty === 'hard') diff = hard;
+
+                    if (correctAnswer !== false) {
+                      actualPoints += truePoints + (answerTime * diff);
+                    } else {
+                      actualPoints = 0;
+                    }
+                    dispatch(addScore(actualPoints));
+                  } }
                   data-testid={ correctAnswer
                     ? 'correct-answer' : `wrong-answer-${wrongAnswerIndex}` }
                   disabled={ answerTime === 0 }
                 >
-                  { text }
+                  {text}
                 </button>
               );
               if (!correctAnswer) {
@@ -122,7 +175,7 @@ class Questions extends React.Component {
               return btnAnswer;
             })
           }
-          { isAnswered && (
+          {isAnswered && (
             <button
               data-testid="btn-next"
               onClick={ this.nextQuestion }
@@ -136,11 +189,20 @@ class Questions extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  player: {
+    score: state.player.score,
+  },
+});
+
 Questions.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  player: PropTypes.shape({
+    score: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
-export default connect()(Questions);
+export default connect(mapStateToProps)(Questions);
