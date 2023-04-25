@@ -15,7 +15,6 @@ class Questions extends React.Component {
     shuffledAnswers: [],
     isAnswered: false,
     answerTime: 30,
-    points: 0,
   };
 
   componentDidMount() {
@@ -61,8 +60,6 @@ class Questions extends React.Component {
   };
 
   nextQuestion = () => {
-    const { points } = this.state;
-
     this.setState({
       isAnswered: false,
     });
