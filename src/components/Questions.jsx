@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { addScore } from '../redux/actions';
 
 const INTERVAL = 1000;
+const LAST_QUESTION = 4;
 let actualPoints = 0;
 
 class Questions extends React.Component {
@@ -60,6 +61,11 @@ class Questions extends React.Component {
   };
 
   nextQuestion = () => {
+    const { indexQuestion } = this.state;
+    const { history } = this.props;
+
+    if (indexQuestion === LAST_QUESTION) history.push('/feedback');
+
     this.setState({
       isAnswered: false,
     });
