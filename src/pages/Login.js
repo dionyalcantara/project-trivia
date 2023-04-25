@@ -31,11 +31,11 @@ class Login extends React.Component {
 
   render() {
     const { email, name } = this.state;
-    const { fetchingComplete, history } = this.props;
+    const { fetchingComplete, history, playerName } = this.props;
 
     const isValid = name.length > 0 && email.length > 0;
 
-    if (fetchingComplete) return <Redirect to="/game" />;
+    if (fetchingComplete && playerName !== '') return <Redirect to="/game" />;
 
     return (
       <main>
@@ -84,6 +84,7 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => ({
   fetchingComplete: state.fetch.fetchingComplete,
+  playerName: state.player.name,
 });
 
 Login.propTypes = {
@@ -92,6 +93,7 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  playerName: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Login);
