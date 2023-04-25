@@ -7,6 +7,23 @@ import { resetLogin, resetFetch } from '../redux/actions';
 const MAX_ASSERTIONS = 3;
 
 class Feedback extends React.Component {
+  componentDidMount() {
+    this.getPlayersFromLocalStorage();
+  }
+
+  getPlayersFromLocalStorage = () => {
+    const { gravatarEmail, name, score } = this.props;
+
+    const getPlayers = JSON.parse(localStorage.getItem('players')) || [];
+    const infoPlayers = {
+      gravatarEmail,
+      name,
+      score,
+    };
+    const updatedPlayers = [...getPlayers, infoPlayers];
+    localStorage.setItem('players', JSON.stringify(updatedPlayers));
+  };
+
   handleClick = () => {
     const { dispatch, history } = this.props;
     dispatch(resetLogin());
@@ -65,6 +82,8 @@ class Feedback extends React.Component {
 const mapStateToProps = (state) => ({
   assertions: state.player.assertions,
   score: state.player.score,
+  name: state.player.name,
+  gravatarEmail: state.player.gravatarEmail,
 });
 
 Feedback.propTypes = {
@@ -74,6 +93,8 @@ Feedback.propTypes = {
   }).isRequired,
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);
