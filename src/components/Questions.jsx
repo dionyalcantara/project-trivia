@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { addScore } from '../redux/actions';
 
 const INTERVAL = 1000;
 const LAST_QUESTION = 4;
+let actualPoints = 0;
 
 class Questions extends React.Component {
   state = {
@@ -35,9 +37,6 @@ class Questions extends React.Component {
     return shuffle;
   };
 
-  // ao clicar no botão de próxima pergunta, criar uma função que faz um setState
-  // para incrementar +1 no indexQuestion e chamar a organizeQuestion como segundo
-  // parâmetro do setState
   organizeQuestion = () => {
     const { indexQuestion, questions } = this.state;
     const { category, question } = questions[indexQuestion];
@@ -45,10 +44,12 @@ class Questions extends React.Component {
       {
         text: questions[indexQuestion].correct_answer,
         correctAnswer: true,
+        difficulty: questions[indexQuestion].difficulty,
       },
       ...questions[indexQuestion].incorrect_answers.map((text) => ({
         text,
         correctAnswer: false,
+        difficulty: questions[indexQuestion].difficulty,
       })),
     ];
     const shuffledAnswers = this.shuffleArray(answers);
@@ -65,6 +66,9 @@ class Questions extends React.Component {
 
     if (indexQuestion === LAST_QUESTION) history.push('/feedback');
 
+    this.setState({
+      isAnswered: false,
+    });
     this.setState((prevState) => ({
       indexQuestion: prevState.indexQuestion + 1,
       answerTime: 30,
@@ -94,6 +98,8 @@ class Questions extends React.Component {
 
   render() {
     const { category, question, shuffledAnswers, isAnswered, answerTime } = this.state;
+    const { dispatch } = this.props;
+
     let wrongAnswerIndex = 0;
     return (
       <section>
@@ -102,7 +108,7 @@ class Questions extends React.Component {
         <span>{`Tempo: ${answerTime}`}</span>
         <div data-testid="answer-options">
           {
-            shuffledAnswers.map(({ text, correctAnswer }) => {
+            shuffledAnswers.map(({ text, correctAnswer, difficulty }) => {
               const btnStyle = {
                 border: '3px solid',
               };
@@ -114,12 +120,29 @@ class Questions extends React.Component {
                   key={ text }
                   style={ btnStyle }
                   type="button"
-                  onClick={ this.btnClick }
+                  onClick={ () => {
+                    this.btnClick();
+
+                    const truePoints = 10;
+                    const hard = 3;
+                    let diff;
+
+                    if (difficulty === 'easy') diff = 1;
+                    if (difficulty === 'medium') diff = 2;
+                    if (difficulty === 'hard') diff = hard;
+
+                    if (correctAnswer !== false) {
+                      actualPoints += truePoints + (answerTime * diff);
+                    } else {
+                      actualPoints = 0;
+                    }
+                    dispatch(addScore(actualPoints));
+                  } }
                   data-testid={ correctAnswer
                     ? 'correct-answer' : `wrong-answer-${wrongAnswerIndex}` }
                   disabled={ answerTime === 0 }
                 >
-                  { text }
+                  {text}
                 </button>
               );
               if (!correctAnswer) {
@@ -128,7 +151,7 @@ class Questions extends React.Component {
               return btnAnswer;
             })
           }
-          { isAnswered && (
+          {isAnswered && (
             <button
               data-testid="btn-next"
               onClick={ this.nextQuestion }
@@ -142,11 +165,20 @@ class Questions extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  player: {
+    score: state.player.score,
+  },
+});
+
 Questions.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  player: PropTypes.shape({
+    score: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
-export default connect()(Questions);
+export default connect(mapStateToProps)(Questions);

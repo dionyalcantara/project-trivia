@@ -4,6 +4,7 @@ import {
   REQUEST_FAILED,
   GRAVATAR_EMAIL,
   SAVE_USERNAME,
+  ADD_SCORE,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -21,7 +22,6 @@ const INITIAL_STATE = {
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  // desenvolver cases para cada action
   case REQUEST_STARTED:
     return {
       ...state,
@@ -30,7 +30,6 @@ const reducer = (state = INITIAL_STATE, action) => {
         isFetching: true,
       },
     };
-
   case REQUEST_SUCCESSFUL:
     return {
       ...state,
@@ -40,14 +39,12 @@ const reducer = (state = INITIAL_STATE, action) => {
         fetchingComplete: true,
       },
     };
-
   case REQUEST_FAILED:
     return {
       ...state,
       isFetching: false,
       errorMessage: action.payload,
     };
-
   case GRAVATAR_EMAIL:
     return {
       player: {
@@ -55,7 +52,6 @@ const reducer = (state = INITIAL_STATE, action) => {
         gravatarEmail: action.payload,
       },
     };
-
   case SAVE_USERNAME:
     return {
       player: {
@@ -63,7 +59,13 @@ const reducer = (state = INITIAL_STATE, action) => {
         name: action.payload,
       },
     };
-
+  case ADD_SCORE:
+    return {
+      player: {
+        ...state.player,
+        score: state.player.score + action.payload,
+      },
+    };
   default:
     return state;
   }
