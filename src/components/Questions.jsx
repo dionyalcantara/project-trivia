@@ -21,7 +21,6 @@ class Questions extends React.Component {
   componentDidMount() {
     this.fetchApiQuestions();
     this.timer = setInterval(() => this.timerRun(), INTERVAL);
-    // this.sumPoints();
   }
 
   componentWillUnmount() {
@@ -38,9 +37,6 @@ class Questions extends React.Component {
     return shuffle;
   };
 
-  // ao clicar no botão de próxima pergunta, criar uma função que faz um setState
-  // para incrementar +1 no indexQuestion e chamar a organizeQuestion como segundo
-  // parâmetro do setState
   organizeQuestion = () => {
     const { indexQuestion, questions } = this.state;
     const { category, question } = questions[indexQuestion];
@@ -67,7 +63,6 @@ class Questions extends React.Component {
   nextQuestion = () => {
     const { points } = this.state;
 
-    console.log(points);
     this.setState({
       isAnswered: false,
     });
@@ -97,28 +92,6 @@ class Questions extends React.Component {
       answerTime: prevState.answerTime > 1 ? prevState.answerTime - 1 : 0,
     }));
   };
-
-  // sumPoints = (answer, difficulty) => {
-  //   let { points } = this.state;
-  //   const { answerTime } = this.state;
-  //   const { player } = this.props;
-  //   const truePoints = 10;
-  //   const hard = 3;
-  //   const actualPoints = player.score;
-  //   let diff;
-
-  //   if (difficulty === 'easy') diff = 1;
-  //   if (difficulty === 'medium') diff = 2;
-  //   if (difficulty === 'hard') diff = hard;
-
-  //   // if (answer === true) {
-  //   //   actualPoints += truePoints + (answerTime * diff);
-  //   // }
-  //   console.log(answer);
-  //   this.setState({
-  //     points: points += actualPoints,
-  //   });
-  // };
 
   render() {
     const { category, question, shuffledAnswers, isAnswered, answerTime } = this.state;
