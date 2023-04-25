@@ -39,3 +39,11 @@ export const addScore = (points) => ({
 export const increaseAssertions = () => ({
   type: type.INCREASE_ASSERTIONS,
 });
+
+export const resetLogin = () => ({
+  type: type.RESET_LOGIN,
+});
+
+export const resetFetch = () => ({
+  type: type.RESET_FETCH,
+});
