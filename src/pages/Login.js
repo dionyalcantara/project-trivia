@@ -83,7 +83,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  fetchingComplete: state.player.fetchingComplete,
+  fetchingComplete: state.fetch.fetchingComplete,
 });
 
 Login.propTypes = {

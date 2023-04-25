@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 import {
   REQUEST_STARTED,
   REQUEST_SUCCESSFUL,
@@ -5,70 +6,81 @@ import {
   SAVE_USERNAME,
   ADD_SCORE,
   INCREASE_ASSERTIONS,
+  RESET_LOGIN,
+  RESET_FETCH,
 } from '../actions/actionTypes';
 
-const INITIAL_STATE = {
-  player: {
-    name: '',
-    assertions: 0,
-    score: 0,
-    gravatarEmail: '',
-    isFetching: false,
-    fetchingComplete: false,
-    data: {},
-  },
+const INITIAL_STATE_LOGIN = {
+  name: '',
+  assertions: 0,
+  score: 0,
+  gravatarEmail: '',
+};
+const INITIAL_STATE_FETCH = {
+  isFetching: false,
+  fetchingComplete: false,
 };
 
-const reducer = (state = INITIAL_STATE, action) => {
+const reducerLogin = (state = INITIAL_STATE_LOGIN, action) => {
   switch (action.type) {
-  case REQUEST_STARTED:
-    return {
-      ...state,
-      player: {
-        ...state.player,
-        isFetching: true,
-      },
-    };
-  case REQUEST_SUCCESSFUL:
-    return {
-      ...state,
-      player: {
-        ...state.player,
-        isFetching: false,
-        fetchingComplete: true,
-      },
-    };
   case GRAVATAR_EMAIL:
     return {
-      player: {
-        ...state.player,
-        gravatarEmail: action.payload,
-      },
+      ...state,
+      gravatarEmail: action.payload,
     };
   case SAVE_USERNAME:
     return {
-      player: {
-        ...state.player,
-        name: action.payload,
-      },
+      ...state,
+      name: action.payload,
     };
   case ADD_SCORE:
     return {
-      player: {
-        ...state.player,
-        score: state.player.score + action.payload,
-      },
+      ...state,
+      score: state.score + action.payload,
     };
   case INCREASE_ASSERTIONS:
     return {
-      player: {
-        ...state.player,
-        assertions: state.player.assertions + 1,
-      },
+      ...state,
+      assertions: state.assertions + 1,
+    };
+  case RESET_LOGIN:
+    return {
+      name: '',
+      assertions: 0,
+      score: 0,
+      gravatarEmail: '',
     };
   default:
     return state;
   }
 };
+
+const reducerFetch = (state = INITIAL_STATE_FETCH, action) => {
+  switch (action.type) {
+  case REQUEST_STARTED:
+    return {
+      ...state,
+      isFetching: true,
+    };
+  case REQUEST_SUCCESSFUL:
+    return {
+      ...state,
+      isFetching: false,
+      fetchingComplete: true,
+    };
+  case RESET_FETCH:
+    return {
+      ...state,
+      fetchingComplete: false,
+    };
+  default:
+    return state;
+  }
+};
+
+const reducer = combineReducers({
+  player: reducerLogin,
+  fetch: reducerFetch,
+});
 
 export default reducer;

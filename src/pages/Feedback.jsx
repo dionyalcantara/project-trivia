@@ -2,10 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import { resetLogin, resetFetch } from '../redux/actions';
 
 const MAX_ASSERTIONS = 3;
 
 class Feedback extends React.Component {
+  handleClick = () => {
+    const { dispatch, history } = this.props;
+    dispatch(resetLogin());
+    dispatch(resetFetch());
+    history.push('/');
+  };
+
   render() {
     const { assertions, score } = this.props;
     return (
@@ -33,6 +41,13 @@ class Feedback extends React.Component {
           {' '}
           pontos
         </p>
+
+        <button
+          data-testid="btn-play-again"
+          onClick={ this.handleClick }
+        >
+          Play Again
+        </button>
       </section>
     );
   }
@@ -44,6 +59,10 @@ const mapStateToProps = (state) => ({
 });
 
 Feedback.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
 };
