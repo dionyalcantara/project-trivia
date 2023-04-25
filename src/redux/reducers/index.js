@@ -1,10 +1,10 @@
 import {
   REQUEST_STARTED,
   REQUEST_SUCCESSFUL,
-  REQUEST_FAILED,
   GRAVATAR_EMAIL,
   SAVE_USERNAME,
   ADD_SCORE,
+  INCREASE_ASSERTIONS,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -15,7 +15,6 @@ const INITIAL_STATE = {
     gravatarEmail: '',
     isFetching: false,
     fetchingComplete: false,
-    errorMessage: '',
     data: {},
   },
 };
@@ -39,12 +38,6 @@ const reducer = (state = INITIAL_STATE, action) => {
         fetchingComplete: true,
       },
     };
-  case REQUEST_FAILED:
-    return {
-      ...state,
-      isFetching: false,
-      errorMessage: action.payload,
-    };
   case GRAVATAR_EMAIL:
     return {
       player: {
@@ -64,6 +57,13 @@ const reducer = (state = INITIAL_STATE, action) => {
       player: {
         ...state.player,
         score: state.player.score + action.payload,
+      },
+    };
+  case INCREASE_ASSERTIONS:
+    return {
+      player: {
+        ...state.player,
+        assertions: state.player.assertions + 1,
       },
     };
   default:

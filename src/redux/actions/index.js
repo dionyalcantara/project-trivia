@@ -11,13 +11,6 @@ function requestSuccessful(data) {
   };
 }
 
-export function requestFailed(error) {
-  return {
-    type: type.REQUEST_FAILED,
-    payload: error,
-  };
-}
-
 export const generateGravatar = (hash) => ({
   type: type.GRAVATAR_EMAIL,
   payload: `https://www.gravatar.com/avatar/${hash}`,
@@ -41,4 +34,8 @@ export const saveName = (userName) => ({
 export const addScore = (points) => ({
   type: type.ADD_SCORE,
   payload: points,
+});
+
+export const increaseAssertions = () => ({
+  type: type.INCREASE_ASSERTIONS,
 });
