@@ -4,7 +4,6 @@ import Feedback from './pages/Feedback';
 import Login from './pages/Login';
 import Game from './pages/Game';
 import Config from './pages/Config';
-import Feedback from './pages/Feedback';
 
 export default function App() {
   return (
