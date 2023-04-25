@@ -12,19 +12,26 @@ class Feedback extends React.Component {
       <section>
         <Header />
         <h3 data-testid="feedback-text">
-          {
-            assertions < MAX_ASSERTIONS ? 'Could be better...' : 'Well Done!'
-          }
+          {assertions < MAX_ASSERTIONS
+            ? 'Could be better...' : 'Well Done!'}
         </h3>
-        <p data-testid="feedback-total-score">
-          {
-            `Você acertou ${score} questões`
-          }
+        <p>
+          Você acertou
+          {' '}
+          <span data-testid="feedback-total-question">
+            { assertions }
+          </span>
+          {' '}
+          questões
         </p>
-        <p data-testid="feedback-total-question">
-          {
-            `Um total de ${assertions} pontos`
-          }
+        <p>
+          Um total de
+          {' '}
+          <span data-testid="feedback-total-score">
+            { score }
+          </span>
+          {' '}
+          pontos
         </p>
       </section>
     );

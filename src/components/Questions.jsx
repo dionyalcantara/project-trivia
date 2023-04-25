@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addScore } from '../redux/actions';
+import { addScore, increaseAssertions } from '../redux/actions';
 
 const INTERVAL = 1000;
 const LAST_QUESTION = 4;
@@ -133,6 +133,7 @@ class Questions extends React.Component {
 
                     if (correctAnswer !== false) {
                       actualPoints += truePoints + (answerTime * diff);
+                      dispatch(increaseAssertions());
                     } else {
                       actualPoints = 0;
                     }
