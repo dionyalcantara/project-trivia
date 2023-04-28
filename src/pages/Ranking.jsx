@@ -66,7 +66,7 @@ class Ranking extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  gravatarEmail: state.player.gravatarEmail
+  gravatarEmail: state.player.gravatarEmail,
 });
 
 Ranking.propTypes = {
