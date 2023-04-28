@@ -23,7 +23,7 @@ O projeto foi desenvolvido seguindo o método Kanban, onde foram divididos os re
 
 ## Pode ver o projeto em funcionamento aqui
 
-`https://project-trivia-mu.vercel.app`
+<https://project-trivia-mu.vercel.app>
 
 ## Equipe
 
