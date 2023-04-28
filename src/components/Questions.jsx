@@ -129,7 +129,9 @@ class Questions extends React.Component {
                   border: 'none',
                 };
                 if (isAnswered) {
-                  correctAnswer ? btnStyle.border = '3px solid rgb(6, 240, 15)' : btnStyle.border = '3px solid red';
+                  btnStyle.border = correctAnswer ? (
+                    btnStyle.border = '3px solid rgb(6, 240, 15)'
+                  ) : btnStyle.border = '3px solid red';
                 }
                 const btnAnswer = (
                   <button
@@ -160,6 +162,7 @@ class Questions extends React.Component {
                     data-testid={ correctAnswer
                       ? 'correct-answer' : `wrong-answer-${wrongAnswerIndex}` }
                     disabled={ answerTime === 0 }
+                    aria-label="answer"
                   />
                 );
                 if (!correctAnswer) {
