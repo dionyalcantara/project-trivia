@@ -20,7 +20,7 @@ class Ranking extends React.Component {
   }
 
   render() {
-    const { history, dispatch, gravatarEmail } = this.props;
+    const { history, dispatch } = this.props;
     const { players } = this.state;
 
     return (
@@ -44,7 +44,9 @@ class Ranking extends React.Component {
                 <div data-testid={ `player-name-${index}` }>{player.name}</div>
                 <div className="score-ranking">
                   <FontAwesomeIcon icon={ faStar } className="star-icon" />
-                  <div data-testid={ `player-score-${index}` }>{`${player.score} points`}</div>
+                  <div data-testid={ `player-score-${index}` }>
+                    {`${player.score} points`}
+                  </div>
                 </div>
               </li>
             ))}
@@ -74,7 +76,6 @@ Ranking.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
-  gravatarEmail: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Ranking);

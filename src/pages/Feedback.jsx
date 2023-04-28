@@ -35,7 +35,7 @@ class Feedback extends React.Component {
   };
 
   render() {
-    const { assertions, score, history, gravatarEmail } = this.props;
+    const { assertions, score, history } = this.props;
     return (
       <main className="main-feedback">
         <Header />
@@ -57,18 +57,14 @@ class Feedback extends React.Component {
               <p>
                 You answered
                 {' '}
-                <span data-testid="feedback-total-question">
-                  { assertions }
-                </span>
+                <span data-testid="feedback-total-question">{ assertions }</span>
                 {' '}
                 questions correctly
               </p>
               <p>
                 Your total score is
                 {' '}
-                <span data-testid="feedback-total-score">
-                  { score }
-                </span>
+                <strong data-testid="feedback-total-score">{ score }</strong>
                 {' '}
                 points
               </p>
