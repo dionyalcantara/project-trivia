@@ -1,0 +1,73 @@
+.main-feedback {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  justify-content: center;
+}
+
+.info-feedback {
+  background-color: #fdfdfd;
+  border-radius: 1rem;
+  height: 350px;
+  margin: 0 auto;
+  text-align: center;
+  width: 600px;
+}
+
+.info-feedback p {
+  font-size: 1.3rem;
+}
+
+.result {
+  margin-top: 3.5rem;
+}
+
+.feed {
+  margin-top: 3.2rem;
+}
+
+
+.profile-img {
+  margin-top: -3rem;
+  width: 200px;
+}
+
+.feedback-message {
+  color: rgb(55, 48, 107);
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.btns-feedback {
+  display: flex;
+  justify-content: space-between;
+  width: 600px;
+  margin-top: 1rem;
+}
+
+.btn-ranking {
+  background-color: rgb(55, 48, 107);
+  color: #fdfdfd;
+}
+
+.btn-play-again {
+  background-color: rgb(158, 71, 135);
+  color: #fdfdfd;
+}
+
+.btn-feed {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  height: 3.5rem;
+  outline: none;
+  text-transform: uppercase;
+  width: 290px;
+}

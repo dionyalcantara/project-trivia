@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { resetLogin, resetFetch } from '../redux/actions';
 
+import '../styles/feedback.css';
+import logo from '../trivia.png';
+
 const MAX_ASSERTIONS = 3;
 
 class Feedback extends React.Component {
@@ -32,49 +35,66 @@ class Feedback extends React.Component {
   };
 
   render() {
-    const { assertions, score, history } = this.props;
+    const { assertions, score, history, gravatarEmail } = this.props;
     return (
-      <section>
+      <main className="main-feedback">
         <Header />
-        <h3 data-testid="feedback-text">
-          {assertions < MAX_ASSERTIONS
-            ? 'Could be better...' : 'Well Done!'}
-        </h3>
-        <p>
-          Você acertou
-          {' '}
-          <span data-testid="feedback-total-question">
-            { assertions }
-          </span>
-          {' '}
-          questões
-        </p>
-        <p>
-          Um total de
-          {' '}
-          <span data-testid="feedback-total-score">
-            { score }
-          </span>
-          {' '}
-          pontos
-        </p>
+        <div className="info-feedback">
+          <img
+            className="profile-img"
+            src={ logo }
+            alt="logo trivia"
+          />
+          <div className="feed">
+            <h3
+              className="feedback-message"
+              data-testid="feedback-text"
+            >
+              {assertions < MAX_ASSERTIONS
+                ? 'Could be better...' : 'Well Done!'}
+            </h3>
+            <div className="result">
+              <p>
+                You answered
+                {' '}
+                <span data-testid="feedback-total-question">
+                  { assertions }
+                </span>
+                {' '}
+                questions correctly
+              </p>
+              <p>
+                Your total score is
+                {' '}
+                <span data-testid="feedback-total-score">
+                  { score }
+                </span>
+                {' '}
+                points
+              </p>
+            </div>
+          </div>
+        </div>
 
-        <button
-          data-testid="btn-play-again"
-          onClick={ this.handleClick }
-        >
-          Play Again
-        </button>
-
-        <button
-          data-testid="btn-ranking"
-          onClick={ () => {
-            history.push('/ranking');
-          } }
-        >
-          Ranking
-        </button>
-      </section>
+        <div className="btns-feedback">
+          <button
+            className="btn-feed btn-play-again"
+            data-testid="btn-play-again"
+            onClick={ this.handleClick }
+          >
+            Play Again
+          </button>
+          <button
+            className="btn-feed btn-ranking"
+            data-testid="btn-ranking"
+            onClick={ () => {
+              history.push('/ranking');
+            } }
+          >
+            Ranking
+          </button>
+        </div>
+      </main>
     );
   }
 }

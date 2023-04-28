@@ -1,0 +1,78 @@
+:root {
+
+  --purple: rgb(55, 48, 107) 0%;
+
+  --violet: rgb(102, 52, 127) 35%;
+
+  --pink: rgb(158, 71, 135) 100%;
+
+}
+
+main {
+  align-items: center;
+  background: linear-gradient(120deg, var(--purple), var(--violet), var(--pink));
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  justify-content: center;
+}
+
+.logo-trivia {
+  height: 150px;
+  margin-bottom: 8rem;
+}
+
+.form {
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 1px 4px 13px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  height: 333px;
+  justify-content: center;
+  padding: 50px;
+  width: 614px;
+}
+
+.input-one, .input-two {
+  align-items: flex-start;
+  background: white;
+  border: 2px solid #c4c8cd;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+  text-indent: 1rem;
+  width: 500px;
+}
+
+.buttons-login {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-login-one, .btn-login-two {
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  height: 3rem;
+  letter-spacing: 0.15rem;
+  margin-bottom: 1rem;
+  outline: none;
+  text-transform: uppercase;
+  width: 505px;
+}
+
+.btn-login-one {
+  background-color: rgb(158, 71, 135);
+}
+
+.btn-login-two {
+  background-color: rgb(55, 48, 107);
+}

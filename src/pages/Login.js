@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import { MD5 } from 'crypto-js';
 import { fetchTrivia, saveName, generateGravatar } from '../redux/actions';
 
+import '../styles/login.css';
+import logo from '../trivia.png';
+
 class Login extends React.Component {
   state = {
     name: '',
@@ -38,44 +41,51 @@ class Login extends React.Component {
     if (fetchingComplete && playerName !== '') return <Redirect to="/game" />;
 
     return (
-      <main>
-        <form>
-          <label htmlFor="name-id">Nome</label>
+      <main className="main-login">
+        <img src={ logo } alt="logo-trivia" className="logo-trivia" />
+        <form className="form">
           <input
+            className="input-one"
             type="text"
             id="name-id"
             value={ name }
             onChange={ this.handleChange }
             name="name"
             data-testid="input-player-name"
+            placeholder="What's your name?"
           />
 
-          <label htmlFor="email-id">Email</label>
           <input
+            className="input-two"
             type="text"
             id="email-id"
             value={ email }
             onChange={ this.handleChange }
             name="email"
             data-testid="input-gravatar-email"
+            placeholder="What's your e-mail?"
           />
 
-          <button
-            type="submit"
-            disabled={ !isValid }
-            data-testid="btn-play"
-            onClick={ this.handleClick }
-          >
-            Play
-          </button>
-          <button
-            data-testid="btn-settings"
-            onClick={ () => {
-              history.push('/config');
-            } }
-          >
-            Configurações
-          </button>
+          <div className="buttons-login">
+            <button
+              className="btn-login-one"
+              type="submit"
+              disabled={ !isValid }
+              data-testid="btn-play"
+              onClick={ this.handleClick }
+            >
+              Play
+            </button>
+            <button
+              className="btn-login-two"
+              data-testid="btn-settings"
+              onClick={ () => {
+                history.push('/config');
+              } }
+            >
+              Settings
+            </button>
+          </div>
         </form>
       </main>
     );

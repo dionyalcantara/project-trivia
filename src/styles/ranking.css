@@ -1,0 +1,100 @@
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #8c82d6;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #37306b;
+  border-radius: 3px;
+}
+
+.main-ranking {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ranking {
+  background-color: #fdfdfd;
+  border-radius: 1rem;
+  width: 600px;
+  height: 500px;
+  text-align: center;
+}
+
+.logo-ranking {
+  height: 100px;
+  margin-top: -3rem;
+}
+
+ol {
+  list-style-type: none;
+  max-height: 255px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+ol > li {
+  background-color: rgb(227, 227, 227);
+  border-radius: 2rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  width: 510px;
+  height: 70px;
+}
+
+.score-ranking {
+  align-items: center;
+  background-color: #fdfdfd;
+  border-radius: 2rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  display: flex;
+  display: flex;
+  font-family: 'roboto';
+  font-weight: 700;
+  justify-content: center;
+  width: 250px;
+  height: 70px;
+}
+
+.gravatar-ranking {
+  height: 60px;
+  border-radius: 2rem;
+  margin-left: 0.3rem;
+}
+
+.star-icon {
+  height: 30px;
+}
+
+.btn-reset {
+  background-color: #37306b;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  color: #fdfdfd;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  height: 3.5rem;
+  outline: none;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  width: 510px;
+  position: fixed;
+  top: 70%;
+  transform: translate(-50%, -50%);
+}
+
+.ranking-title {
+  color: #37306b;
+  text-transform: uppercase;
+}

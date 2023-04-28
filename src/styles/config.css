@@ -1,0 +1,19 @@
+.main-settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #fdfdfd;
+  border-radius: 1rem;
+  height: 150px;
+  width: 300px;
+  text-align: center;
+  color: rgb(55, 48, 107);
+}

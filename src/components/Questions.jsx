@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addScore, increaseAssertions } from '../redux/actions';
 
+import '../styles/questions.css';
+
 const INTERVAL = 1000;
 const LAST_QUESTION = 4;
 let actualPoints = 0;
@@ -102,58 +104,76 @@ class Questions extends React.Component {
 
     let wrongAnswerIndex = 0;
     return (
-      <section>
-        <h1 data-testid="question-category">{category}</h1>
-        <h2 data-testid="question-text">{question}</h2>
-        <span>{`Tempo: ${answerTime}`}</span>
-        <div data-testid="answer-options">
-          {
-            shuffledAnswers.map(({ text, correctAnswer, difficulty }) => {
-              const btnStyle = {
-                border: '3px solid',
-              };
-              if (isAnswered) {
-                btnStyle.border += correctAnswer ? ' rgb(6, 240, 15)' : ' red';
-              }
-              const btnAnswer = (
-                <button
-                  key={ text }
-                  style={ btnStyle }
-                  type="button"
-                  onClick={ () => {
-                    this.btnClick();
+      <>
+        <section className="main-game">
+          <div className="question-container">
+            <h1 data-testid="question-category" className="category">{category}</h1>
+            <h2
+              className="question"
+              dangerouslySetInnerHTML={ { __html: question } }
+              data-testid="question-text"
+            />
+          </div>
 
-                    const truePoints = 10;
-                    const hard = 3;
-                    let diff;
+          <div className="countdown-timer">
+            <div className="countdown-timer__circle" />
+            <div className="countdown-timer__block">
+              <div className="countdown-timer__value">{answerTime}</div>
+            </div>
+          </div>
 
-                    if (difficulty === 'easy') diff = 1;
-                    if (difficulty === 'medium') diff = 2;
-                    if (difficulty === 'hard') diff = hard;
+          <div data-testid="answer-options" className="answers">
+            {
+              shuffledAnswers.map(({ text, correctAnswer, difficulty }) => {
+                const btnStyle = {
+                  border: 'none',
+                };
+                if (isAnswered) {
+                  correctAnswer ? btnStyle.border = '3px solid rgb(6, 240, 15)' : btnStyle.border = '3px solid red';
+                }
+                const btnAnswer = (
+                  <button
+                    dangerouslySetInnerHTML={ { __html: text } }
+                    className="answer-buttons"
+                    key={ text }
+                    style={ btnStyle }
+                    type="button"
+                    onClick={ () => {
+                      this.btnClick();
 
-                    if (correctAnswer !== false) {
-                      actualPoints += truePoints + (answerTime * diff);
-                      dispatch(increaseAssertions());
-                    } else {
-                      actualPoints = 0;
-                    }
-                    dispatch(addScore(actualPoints));
-                  } }
-                  data-testid={ correctAnswer
-                    ? 'correct-answer' : `wrong-answer-${wrongAnswerIndex}` }
-                  disabled={ answerTime === 0 }
-                >
-                  {text}
-                </button>
-              );
-              if (!correctAnswer) {
-                wrongAnswerIndex += 1;
-              }
-              return btnAnswer;
-            })
-          }
+                      const truePoints = 10;
+                      const hard = 3;
+                      let diff;
+
+                      if (difficulty === 'easy') diff = 1;
+                      if (difficulty === 'medium') diff = 2;
+                      if (difficulty === 'hard') diff = hard;
+
+                      if (correctAnswer !== false) {
+                        actualPoints += truePoints + (answerTime * diff);
+                        dispatch(increaseAssertions());
+                      } else {
+                        actualPoints = 0;
+                      }
+                      dispatch(addScore(actualPoints));
+                    } }
+                    data-testid={ correctAnswer
+                      ? 'correct-answer' : `wrong-answer-${wrongAnswerIndex}` }
+                    disabled={ answerTime === 0 }
+                  />
+                );
+                if (!correctAnswer) {
+                  wrongAnswerIndex += 1;
+                }
+                return btnAnswer;
+              })
+            }
+          </div>
+        </section>
+        <div>
           {isAnswered && (
             <button
+              className="answer-buttons next-btn"
               data-testid="btn-next"
               onClick={ this.nextQuestion }
             >
@@ -161,7 +181,7 @@ class Questions extends React.Component {
             </button>
           )}
         </div>
-      </section>
+      </>
     );
   }
 }

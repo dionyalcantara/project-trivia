@@ -24,8 +24,8 @@ class Header extends Component {
         </div>
         <div className="scoring">
           <FontAwesomeIcon icon={ faStar } className="star-icon" />
-          <span>Score:</span>
-          <h5 data-testid="header-score">{currentScore}</h5>
+          <h5 className="score-label">Score:</h5>
+          <h5 data-testid="header-score" className="header-score">{currentScore}</h5>
         </div>
       </header>
     );

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Questions from '../components/Questions';
 
+import '../styles/game.css';
+
 class Game extends React.Component {
   componentDidMount() {
     this.verifyToken();
@@ -23,7 +25,7 @@ class Game extends React.Component {
   render() {
     const { history } = this.props;
     return (
-      <main>
+      <main className="game-container">
         <Header />
         <Questions history={ history } />
       </main>

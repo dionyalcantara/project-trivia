@@ -1,30 +1,31 @@
 header {
   background-color: #fdfdfd;
-  box-shadow: rgba(33, 35, 38, 0.1) 1px 10px 10px -10px;
+  box-shadow: rgba(33, 35, 38, 1) 1px 10px 10px -10px;
   box-sizing: border-box;
   display: flex;
-  height: 3.5rem;
-  justify-content: flex-end;
+  height: 6.5rem;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
   width: 100vw;
 }
 
 .user-info, .scoring {
   align-items: center;
   display: flex;
-  font-family: Lucida Sans , Lucida Sans Regular , Geneva , Verdana , sans-serif;
+  font-family: Roboto , sans-serif;
   font-size: 18px;
   justify-content: center;
   width: 14vmin;
 }
 
 .user-info img {
-  height: 30px;
+  border-radius: 50%;
+  height: 50px;
   margin-right: 0.5rem;
-  width: 30px;
-}
-
-.scoring {
-  margin-right: 1.5rem;
+  width: 50px;
 }
 
 .star-icon, .user-pic {
@@ -33,4 +34,13 @@ header {
 
 .star-icon path {
   color: gold;
+}
+
+.header-score {
+  font-size: 1rem;
+}
+
+.score-label {
+  font-weight: 400;
+  margin-right: 0.5rem;
 }
